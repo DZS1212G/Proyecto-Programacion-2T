@@ -8,16 +8,31 @@ package SistemadePagos;
  *
  * @author zapsobdi
  */
-public class Bizum implements MetodoPago{
+public class Bizum implements MetodoPago {
+
+    private int numTel;
+    private double importe;
+
+    public Bizum(int numTel) {
+        this.numTel = numTel;
+    }
 
     @Override
     public void pagar(double cantidad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.importe = cantidad;
     }
 
     @Override
     public String obtenerComprobante() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
+    public int getNumTel() {
+        return numTel;
+    }
+
+    public void setNumTel(int numTel) {
+        this.numTel = numTel;
+    }
+
 }

@@ -4,56 +4,44 @@
  */
 package SistemadePagos;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author zapsobdi
  */
-public class Tarjeta implements MetodoPago{
+public class Tarjeta implements MetodoPago {
 
-    private int numTarjeta;
-    private LocalDate fechaCad;
-    private int cvv;
+    private String numTarjeta;
+    private double importe;
 
-    public Tarjeta(int numTarjeta, LocalDate fechaCad, int cvv) {
+    public Tarjeta(String numTarjeta) {
         this.numTarjeta = numTarjeta;
-        this.fechaCad = fechaCad;
-        this.cvv = cvv;
     }
- 
+
     @Override
     public void pagar(double cantidad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.importe = cantidad;
     }
 
     @Override
     public String obtenerComprobante() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String ultimosNum = "";
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        for (int i = 11; i < 15; i++) {
+            ultimosNum += numTarjeta.charAt(i);
+        }
+        return "Comproboante de Pago: \nFecha del pago: "+ now.format(dtf)+"\nImporte Pagado: "+this.importe+"\nNumero de Tarjeta: ************"+ultimosNum;
     }
 
-    public int getNumTarjeta() {
+    public String getNumTarjeta() {
         return numTarjeta;
     }
 
-    public void setNumTarjeta(int numTarjeta) {
+    public void setNumTarjeta(String numTarjeta) {
         this.numTarjeta = numTarjeta;
     }
 
-    public LocalDate getFechaCad() {
-        return fechaCad;
-    }
-
-    public void setFechaCad(LocalDate fechaCad) {
-        this.fechaCad = fechaCad;
-    }
-
-    public int getCvv() {
-        return cvv;
-    }
-
-    public void setCvv(int cvv) {
-        this.cvv = cvv;
-    }
-    
 }
