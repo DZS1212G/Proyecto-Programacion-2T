@@ -29,14 +29,12 @@ public class Tarjeta implements MetodoPago {
         for (int i = 11; i < 15; i++) {
             ultimosNum += numTarjeta.charAt(i);
         }
-        return this.getClass().getSimpleName() + "\nComproboante de Pago: \nFecha del pago: " + now.format(dtf) + "\nImporte Pagado: " + this.importe + "\nNumero de Tarjeta: ************" + ultimosNum;
+        return this.getClass().getSimpleName() + "\nComprobante de Pago: \nFecha del pago: " + now.format(dtf) + "\nImporte Pagado: " + this.importe + "\nNumero de Tarjeta: ************" + ultimosNum;
     }
 
     public String getNumTarjeta() {
         return numTarjeta;
     }
-
-
 
     @Override
     public void set(String cadena) {

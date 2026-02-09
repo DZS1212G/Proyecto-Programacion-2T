@@ -5,8 +5,6 @@ package SistemadePagos;
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 import java.awt.Dimension;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -51,16 +49,35 @@ public class GUIPagos extends javax.swing.JFrame {
     }
 
     private void validacionBizum(String entrada) throws Exception {
-        if (entrada != null && !entrada.isEmpty()) {
-            pg.set(entrada);
+        this.ErrorLabel.setText("");
+        if (!entrada.matches("")) {
+            throw new Exception("El numero de telefono no contiene un formato adecuado (9 Numeros)");
         } else {
-            throw new Exception("Entrada Vacia");
+            pg.set(entrada);
+
         }
 
     }
 
-    private void validacionTarjetas(String entrada) {
+    private void validacionTarjetas(String entrada) throws Exception {
+        this.ErrorLabel.setText("");
+        if (entrada.isEmpty()) {
+            throw new Exception("No has introducido nada");
+        } else if (!entrada.matches("\\d{16}")) {
+            throw new Exception("Su tarjeta no contiene un formato adecuado(16 Numeros)");
+        } else {
+            pg.set(entrada);
+        }
+    }
 
+    private void validacionPayPal(String entrada) throws Exception {
+        this.ErrorLabel.setText("");
+        if (!entrada.matches("")) {
+            throw new Exception("Su correo no tiene el formato deseado (a@b.c)");
+        } else {
+            pg.set(entrada);
+            this.ErrorLabel.setText("");
+        }
     }
 
     /**
@@ -72,68 +89,83 @@ public class GUIPagos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Bizum = new javax.swing.JButton();
-        Tarjeta = new javax.swing.JButton();
-        PayPal = new javax.swing.JButton();
-        Pagar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         Pantalla = new javax.swing.JTextArea();
+        ErrorLabel = new javax.swing.JTextField();
+        Pagar = new javax.swing.JButton();
+        PayPal = new javax.swing.JButton();
+        Tarjeta = new javax.swing.JButton();
+        Bizum = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
 
-        Bizum.setText("Bizum");
-        Bizum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BizumActionPerformed(evt);
-            }
-        });
+        Pantalla.setColumns(20);
+        Pantalla.setRows(5);
 
-        Tarjeta.setText("Tarjeta");
-        Tarjeta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TarjetaActionPerformed(evt);
-            }
-        });
-
-        PayPal.setText("PayPal");
-        PayPal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PayPalActionPerformed(evt);
-            }
-        });
+        ErrorLabel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ErrorLabel.setToolTipText("");
+        ErrorLabel.setFocusable(false);
 
         Pagar.setText("Pagar");
+        Pagar.setFocusable(false);
         Pagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PagarActionPerformed(evt);
             }
         });
 
-        Pantalla.setColumns(20);
-        Pantalla.setRows(5);
+        PayPal.setText("PayPal");
+        PayPal.setFocusable(false);
+        PayPal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PayPalActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(147, 147, 147)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+        Tarjeta.setText("Tarjeta");
+        Tarjeta.setFocusable(false);
+        Tarjeta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TarjetaActionPerformed(evt);
+            }
+        });
+
+        Bizum.setText("Bizum");
+        Bizum.setFocusable(false);
+        Bizum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BizumActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Pantalla)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(ErrorLabel)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(138, 138, 138)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(Bizum, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Tarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(PayPal, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Pagar))
-                .addContainerGap(153, Short.MAX_VALUE))
-            .addComponent(Pantalla)
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Bizum, PayPal, Tarjeta});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Bizum, PayPal, Tarjeta});
 
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(Pantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Bizum)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Tarjeta)
@@ -141,10 +173,23 @@ public class GUIPagos extends javax.swing.JFrame {
                 .addComponent(PayPal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Pagar)
-                .addGap(86, 86, 86))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Bizum, PayPal, Tarjeta});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Bizum, PayPal, Tarjeta});
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -156,7 +201,7 @@ public class GUIPagos extends javax.swing.JFrame {
         try {
             validacionBizum(entrada);
         } catch (Exception ex) {
-            this.Pantalla.setText(ex.getMessage());
+            this.ErrorLabel.setText(ex.getMessage());
         }
     }//GEN-LAST:event_BizumActionPerformed
 
@@ -165,15 +210,21 @@ public class GUIPagos extends javax.swing.JFrame {
         this.Pantalla.setText("Metodo de Pago: " + pg.getClass().getSimpleName() + " seleccionado");
         String entrada = JOptionPane.showInputDialog(this, "Introduzca numero de tarjeta", "Bizum", JOptionPane.PLAIN_MESSAGE);
         try {
-            validacionBizum(entrada);
+            validacionTarjetas(entrada);
         } catch (Exception ex) {
-            this.Pantalla.setText(ex.getMessage());
+            this.ErrorLabel.setText(ex.getMessage());
         }
     }//GEN-LAST:event_TarjetaActionPerformed
 
     private void PayPalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PayPalActionPerformed
         pg = pp;
         this.Pantalla.setText("Metodo de Pago: " + pg.getClass().getSimpleName() + " seleccionado");
+        String entrada = JOptionPane.showInputDialog(this, "Introduzca numero de tarjeta", "Bizum", JOptionPane.PLAIN_MESSAGE);
+        try {
+            validacionPayPal(entrada);
+        } catch (Exception ex) {
+            this.ErrorLabel.setText(ex.getMessage());
+        }
     }//GEN-LAST:event_PayPalActionPerformed
 
     private void PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PagarActionPerformed
@@ -181,7 +232,7 @@ public class GUIPagos extends javax.swing.JFrame {
         try {
             validacionPago(entrada);
         } catch (Exception ex) {
-            this.Pantalla.setText(ex.getMessage());
+            this.ErrorLabel.setText(ex.getMessage());
         }
     }//GEN-LAST:event_PagarActionPerformed
 
@@ -222,9 +273,11 @@ public class GUIPagos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bizum;
+    private javax.swing.JTextField ErrorLabel;
     private javax.swing.JButton Pagar;
     private javax.swing.JTextArea Pantalla;
     private javax.swing.JButton PayPal;
     private javax.swing.JButton Tarjeta;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
