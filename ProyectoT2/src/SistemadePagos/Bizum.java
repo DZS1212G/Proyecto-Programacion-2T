@@ -4,6 +4,9 @@
  */
 package SistemadePagos;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  *
  * @author zapsobdi
@@ -24,7 +27,9 @@ public class Bizum implements MetodoPago {
 
     @Override
     public String obtenerComprobante() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return "Comprobante de Pago: \nFecha del pago: " + now.format(dtf) + "\nImporte Pagado: " + this.importe + "\nNumero de Telefono: " + numTel;
     }
 
     public int getNumTel() {
