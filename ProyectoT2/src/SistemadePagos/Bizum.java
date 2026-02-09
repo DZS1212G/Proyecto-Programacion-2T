@@ -6,6 +6,7 @@ package SistemadePagos;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
 
 /**
  *
@@ -17,7 +18,8 @@ public class Bizum implements MetodoPago {
     private double importe;
 
     public Bizum(int numTel) {
-        this.numTel = numTel;
+        comprobarNumTel(numTel);
+
     }
 
     @Override
@@ -29,7 +31,7 @@ public class Bizum implements MetodoPago {
     public String obtenerComprobante() {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        return "Comprobante de Pago: \nFecha del pago: " + now.format(dtf) + "\nImporte Pagado: " + this.importe + "\nNumero de Telefono: " + numTel;
+        return "Comprobante de Pago: \nFecha del pago: " + now.format(dtf) + "\nImporte Pagado: " + this.importe + "\nTelefono Receptor: " + numTel;
     }
 
     public int getNumTel() {
@@ -40,4 +42,11 @@ public class Bizum implements MetodoPago {
         this.numTel = numTel;
     }
 
+    public void comprobarNumTel(int numTel) {
+        try {
+            setNumTel(numTel);
+        } catch (InputMismatchException e) {
+            System.out.println("");
+        }
+    }
 }
