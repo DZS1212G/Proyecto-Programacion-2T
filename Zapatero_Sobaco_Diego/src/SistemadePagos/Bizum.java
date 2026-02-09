@@ -17,7 +17,6 @@ public class Bizum implements MetodoPago {
     private int numTel;
     private double importe;
 
-    
     @Override
     public void pagar(double cantidad) {
         this.importe = cantidad;
@@ -34,8 +33,9 @@ public class Bizum implements MetodoPago {
         return numTel;
     }
 
-    public void setNumTel(int numTel) {
-        this.numTel = numTel;
+    @Override
+    public void set(String cadena) {
+        this.numTel = Integer.parseInt(cadena);
     }
 
     public void comprobarNumTel(int numTel) {

@@ -39,7 +39,12 @@ public class Tarjeta implements MetodoPago {
     }
 
     public void setNumTarjeta(String numTarjeta) {
-        this.numTarjeta = numTarjeta;
+       
+    }
+
+    @Override
+    public void set(String cadena) {
+         this.numTarjeta = cadena;
     }
 
 }

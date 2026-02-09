@@ -13,4 +13,6 @@ public interface MetodoPago {
     void pagar(double cantidad);
 
     String obtenerComprobante();
+
+    void set(String cadena);
 }

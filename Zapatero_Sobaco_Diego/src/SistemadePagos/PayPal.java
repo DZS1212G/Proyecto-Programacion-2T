@@ -28,12 +28,16 @@ public class PayPal implements MetodoPago {
         return "Comprobante de Pago: \nFecha del pago: " + now.format(dtf) + "\nImporte Pagado: " + this.importe + "\nCorreo Destinatario: " + correoElec;
     }
 
-    public String getCorreoElec() {
+    public String get() {
         return correoElec;
     }
 
-    public void setCorreoElec(String correoElec) {
-        this.correoElec = correoElec;
+
+    @Override
+    public void set(String cadena) {
+         this.correoElec = cadena;
     }
+
+   
 
 }

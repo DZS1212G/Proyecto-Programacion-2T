@@ -37,13 +37,23 @@ public class GUIPagos extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
-    private void validacion(String entrada) throws Exception {
+    private void validacionPago(String entrada) throws Exception {
         if (entrada != null && !entrada.isEmpty()) {
             double dinero = Double.parseDouble(entrada);
             if (dinero < 0) {
                 throw new Exception("No puedes pagar una cantidad negativa");
             }
             pg.pagar(dinero);
+        } else {
+            this.Pantalla.setText("Entrada Vacia");
+        }
+    }
+
+    private void validacionBizum(String entrada, MetodoPago pg) throws Exception {
+        if (entrada != null && !entrada.isEmpty()) {
+            double dinero = Double.parseDouble(entrada);
+            
+            pg.set(entrada);
         } else {
             this.Pantalla.setText("Entrada Vacia");
         }
@@ -137,34 +147,39 @@ public class GUIPagos extends javax.swing.JFrame {
 
     private void BizumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BizumActionPerformed
         pg = bz;
-        this.Pantalla.setText("Metodo de Pago:" + pg.getClass().getSimpleName() + " seleccionado");
+        this.Pantalla.setText("Metodo de Pago: " + pg.getClass().getSimpleName() + " seleccionado");
+        String entrada = JOptionPane.showInputDialog(this, "Introduzca numero de destino", "Bizum", JOptionPane.PLAIN_MESSAGE);
+        try {
+            validacionPago(entrada);
+        } catch (Exception ex) {
+            this.Pantalla.setText(ex.getMessage());
+        }
     }//GEN-LAST:event_BizumActionPerformed
 
     private void TarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TarjetaActionPerformed
         pg = tj;
-        this.Pantalla.setText("Metodo de Pago:" + pg.getClass().getSimpleName() + " seleccionado");
+        this.Pantalla.setText("Metodo de Pago: " + pg.getClass().getSimpleName() + " seleccionado");
     }//GEN-LAST:event_TarjetaActionPerformed
 
     private void PayPalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PayPalActionPerformed
         pg = pp;
-        this.Pantalla.setText("Metodo de Pago:" + pg.getClass().getSimpleName() + " seleccionado");
+        this.Pantalla.setText("Metodo de Pago: " + pg.getClass().getSimpleName() + " seleccionado");
     }//GEN-LAST:event_PayPalActionPerformed
 
     private void PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PagarActionPerformed
         String entrada = JOptionPane.showInputDialog(this, "Introduzca Cantidad", "Pagar", JOptionPane.PLAIN_MESSAGE);
         try {
-            validacion(entrada);
+            validacionBizum(entrada,this.pg);
         } catch (Exception ex) {
             this.Pantalla.setText(ex.getMessage());
         }
-        this.Pantalla.setText(pg.obtenerComprobante());
     }//GEN-LAST:event_PagarActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        /* set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
