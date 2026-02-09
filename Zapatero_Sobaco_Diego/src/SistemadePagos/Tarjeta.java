@@ -16,8 +16,6 @@ public class Tarjeta implements MetodoPago {
     private String numTarjeta;
     private double importe;
 
-  
-
     @Override
     public void pagar(double cantidad) {
         this.importe = cantidad;
@@ -31,20 +29,18 @@ public class Tarjeta implements MetodoPago {
         for (int i = 11; i < 15; i++) {
             ultimosNum += numTarjeta.charAt(i);
         }
-        return "Comproboante de Pago: \nFecha del pago: "+ now.format(dtf)+"\nImporte Pagado: "+this.importe+"\nNumero de Tarjeta: ************"+ultimosNum;
+        return this.getClass().getSimpleName() + "\nComproboante de Pago: \nFecha del pago: " + now.format(dtf) + "\nImporte Pagado: " + this.importe + "\nNumero de Tarjeta: ************" + ultimosNum;
     }
 
     public String getNumTarjeta() {
         return numTarjeta;
     }
 
-    public void setNumTarjeta(String numTarjeta) {
-       
-    }
+
 
     @Override
     public void set(String cadena) {
-         this.numTarjeta = cadena;
+        this.numTarjeta = cadena;
     }
 
 }

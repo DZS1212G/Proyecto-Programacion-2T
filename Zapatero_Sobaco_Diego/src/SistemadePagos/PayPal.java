@@ -25,19 +25,16 @@ public class PayPal implements MetodoPago {
     public String obtenerComprobante() {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        return "Comprobante de Pago: \nFecha del pago: " + now.format(dtf) + "\nImporte Pagado: " + this.importe + "\nCorreo Destinatario: " + correoElec;
+        return this.getClass().getSimpleName() + "\nComprobante de Pago: \nFecha del pago: " + now.format(dtf) + "\nImporte Pagado: " + this.importe + "\nCorreo Destinatario: " + correoElec;
     }
 
     public String get() {
         return correoElec;
     }
 
-
     @Override
     public void set(String cadena) {
-         this.correoElec = cadena;
+        this.correoElec = cadena;
     }
-
-   
 
 }

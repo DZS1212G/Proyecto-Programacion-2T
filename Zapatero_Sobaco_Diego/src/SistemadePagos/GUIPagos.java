@@ -40,23 +40,27 @@ public class GUIPagos extends javax.swing.JFrame {
     private void validacionPago(String entrada) throws Exception {
         if (entrada != null && !entrada.isEmpty()) {
             double dinero = Double.parseDouble(entrada);
-            if (dinero < 0) {
+            if (dinero <= 0) {
                 throw new Exception("No puedes pagar una cantidad negativa");
             }
             pg.pagar(dinero);
         } else {
-            this.Pantalla.setText("Entrada Vacia");
+            throw new Exception("Entrada Vacia");
         }
+        this.Pantalla.setText(pg.obtenerComprobante());
     }
 
-    private void validacionBizum(String entrada, MetodoPago pg) throws Exception {
+    private void validacionBizum(String entrada) throws Exception {
         if (entrada != null && !entrada.isEmpty()) {
-            double dinero = Double.parseDouble(entrada);
-            
             pg.set(entrada);
         } else {
-            this.Pantalla.setText("Entrada Vacia");
+            throw new Exception("Entrada Vacia");
         }
+
+    }
+
+    private void validacionTarjetas(String entrada) {
+
     }
 
     /**
@@ -148,9 +152,9 @@ public class GUIPagos extends javax.swing.JFrame {
     private void BizumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BizumActionPerformed
         pg = bz;
         this.Pantalla.setText("Metodo de Pago: " + pg.getClass().getSimpleName() + " seleccionado");
-        String entrada = JOptionPane.showInputDialog(this, "Introduzca numero de destino", "Bizum", JOptionPane.PLAIN_MESSAGE);
+        String entrada = JOptionPane.showInputDialog(this, "Introduzca numero de telefono de destino", "Bizum", JOptionPane.PLAIN_MESSAGE);
         try {
-            validacionPago(entrada);
+            validacionBizum(entrada);
         } catch (Exception ex) {
             this.Pantalla.setText(ex.getMessage());
         }
@@ -159,6 +163,12 @@ public class GUIPagos extends javax.swing.JFrame {
     private void TarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TarjetaActionPerformed
         pg = tj;
         this.Pantalla.setText("Metodo de Pago: " + pg.getClass().getSimpleName() + " seleccionado");
+        String entrada = JOptionPane.showInputDialog(this, "Introduzca numero de tarjeta", "Bizum", JOptionPane.PLAIN_MESSAGE);
+        try {
+            validacionBizum(entrada);
+        } catch (Exception ex) {
+            this.Pantalla.setText(ex.getMessage());
+        }
     }//GEN-LAST:event_TarjetaActionPerformed
 
     private void PayPalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PayPalActionPerformed
@@ -169,7 +179,7 @@ public class GUIPagos extends javax.swing.JFrame {
     private void PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PagarActionPerformed
         String entrada = JOptionPane.showInputDialog(this, "Introduzca Cantidad", "Pagar", JOptionPane.PLAIN_MESSAGE);
         try {
-            validacionBizum(entrada,this.pg);
+            validacionPago(entrada);
         } catch (Exception ex) {
             this.Pantalla.setText(ex.getMessage());
         }
