@@ -16,10 +16,6 @@ public class PayPal implements MetodoPago {
     private double importe;
     private String correoElec;
 
-    public PayPal(String correoElec) {
-        this.correoElec = correoElec;
-    }
-
     @Override
     public void pagar(double cantidad) {
         this.importe = cantidad;

@@ -1,25 +1,24 @@
 package SistemadePagos;
 
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 import java.awt.Dimension;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author zapsobdi
+ * @author DZS1212
  */
-
 public class GUIPagos extends javax.swing.JFrame {
-    
+
     MetodoPago pg;
-    Bizum bz = new Bizum(12);
-    PayPal pp = new PayPal("12");
-    Tarjeta tj = new Tarjeta("125");
+    Bizum bz = new Bizum();
+    PayPal pp = new PayPal();
+    Tarjeta tj = new Tarjeta();
 
     /**
      * Creates new form GUIPagos
@@ -28,7 +27,7 @@ public class GUIPagos extends javax.swing.JFrame {
         initComponents();
         setFrame();
     }
-    
+
     private void setFrame() {
         this.setTitle("Pagos");
         this.setSize(new Dimension(400, 700));
@@ -37,25 +36,19 @@ public class GUIPagos extends javax.swing.JFrame {
         this.pack();
         this.setLocationRelativeTo(null);
     }
-private void pago(){
-    String entrada = JOptionPane.showInputDialog(this, "Litros", "Gasolinera", JOptionPane.PLAIN_MESSAGE);
-    if (entrada != null && !entrada.isEmpty()) {
-            double litros = Double.parseDouble(entrada);
-            if (litros > 0) {
-                try {
-                    pg.
-                } catch (Exception ex) {
-                    
-                }
 
+    private void validacion(String entrada) throws Exception {
+        if (entrada != null && !entrada.isEmpty()) {
+            double dinero = Double.parseDouble(entrada);
+            if (dinero < 0) {
+                throw new Exception("No puedes pagar una cantidad negativa");
             }
-
+            pg.pagar(dinero);
         } else {
-            System.out.println("Introduzca una cantidad a respostar");
+            this.Pantalla.setText("Entrada Vacia");
         }
+    }
 
-    }                       
-}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,8 +60,8 @@ private void pago(){
 
         Bizum = new javax.swing.JButton();
         Tarjeta = new javax.swing.JButton();
+        PayPal = new javax.swing.JButton();
         Pagar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
         Pantalla = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -88,6 +81,13 @@ private void pago(){
             }
         });
 
+        PayPal.setText("PayPal");
+        PayPal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PayPalActionPerformed(evt);
+            }
+        });
+
         Pagar.setText("Pagar");
         Pagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,7 +97,6 @@ private void pago(){
 
         Pantalla.setColumns(20);
         Pantalla.setRows(5);
-        jScrollPane1.setViewportView(Pantalla);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,91 +107,99 @@ private void pago(){
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(Bizum, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Tarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(147, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(PayPal, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Pagar))
+                .addContainerGap(153, Short.MAX_VALUE))
+            .addComponent(Pantalla)
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Bizum, Pagar, Tarjeta});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Bizum, PayPal, Tarjeta});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Pantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(Bizum)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Tarjeta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PayPal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Pagar)
-                .addGap(125, 125, 125))
+                .addGap(86, 86, 86))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Bizum, Pagar, Tarjeta});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Bizum, PayPal, Tarjeta});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BizumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BizumActionPerformed
         pg = bz;
-        this.Pantalla.setText("Bizum seleccionado");
+        this.Pantalla.setText("Metodo de Pago:" + pg.getClass().getSimpleName() + " seleccionado");
     }//GEN-LAST:event_BizumActionPerformed
 
     private void TarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TarjetaActionPerformed
         pg = tj;
-        this.Pantalla.setText("Tarjeta seleccionado");
+        this.Pantalla.setText("Metodo de Pago:" + pg.getClass().getSimpleName() + " seleccionado");
     }//GEN-LAST:event_TarjetaActionPerformed
 
-    private void PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PagarActionPerformed
-        try {
-            pg.pagar(12);
-            this.Pantalla.setText(pg.obtenerComprobante());
-        } catch (Exception e) {
-            this.Pantalla.setText("No se selecciono metodo de pago");
-        }
+    private void PayPalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PayPalActionPerformed
+        pg = pp;
+        this.Pantalla.setText("Metodo de Pago:" + pg.getClass().getSimpleName() + " seleccionado");
+    }//GEN-LAST:event_PayPalActionPerformed
 
+    private void PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PagarActionPerformed
+        String entrada = JOptionPane.showInputDialog(this, "Introduzca Cantidad", "Pagar", JOptionPane.PLAIN_MESSAGE);
+        try {
+            validacion(entrada);
+        } catch (Exception ex) {
+            this.Pantalla.setText(ex.getMessage());
+        }
+        this.Pantalla.setText(pg.obtenerComprobante());
     }//GEN-LAST:event_PagarActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-    /* Set the Nimbus look and feel */
-    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-     */
-    try {
-        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-            if ("Nimbus".equals(info.getName())) {
-                javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                break;
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(GUIPagos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(GUIPagos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(GUIPagos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(GUIPagos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-    } catch (ClassNotFoundException ex) {
-        java.util.logging.Logger.getLogger(GUIPagos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (InstantiationException ex) {
-        java.util.logging.Logger.getLogger(GUIPagos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (IllegalAccessException ex) {
-        java.util.logging.Logger.getLogger(GUIPagos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-        java.util.logging.Logger.getLogger(GUIPagos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    }
-    //</editor-fold>
+        //</editor-fold>
 
-    /* Create and display the form */
-    java.awt.EventQueue.invokeLater(new Runnable() {
-        public void run() {
-            new GUIPagos().setVisible(true);
-        }
-    });
-}
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new GUIPagos().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bizum;
     private javax.swing.JButton Pagar;
     private javax.swing.JTextArea Pantalla;
+    private javax.swing.JButton PayPal;
     private javax.swing.JButton Tarjeta;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,9 +16,7 @@ public class Tarjeta implements MetodoPago {
     private String numTarjeta;
     private double importe;
 
-    public Tarjeta(String numTarjeta) {
-        this.numTarjeta = numTarjeta;
-    }
+  
 
     @Override
     public void pagar(double cantidad) {

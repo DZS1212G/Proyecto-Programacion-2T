@@ -17,11 +17,7 @@ public class Bizum implements MetodoPago {
     private int numTel;
     private double importe;
 
-    public Bizum(int numTel) {
-        comprobarNumTel(numTel);
-
-    }
-
+    
     @Override
     public void pagar(double cantidad) {
         this.importe = cantidad;
