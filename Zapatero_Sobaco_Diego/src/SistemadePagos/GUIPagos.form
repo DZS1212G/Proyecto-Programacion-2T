@@ -6,6 +6,7 @@
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="99" green="99" red="99" type="rgb"/>
     </Property>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -26,10 +27,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" max="32767" attributes="0"/>
-          </Group>
+          <Component id="jPanel1" alignment="1" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -44,20 +42,24 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="Pantalla" alignment="0" max="32767" attributes="0"/>
+              <Component id="Pantalla" alignment="0" pref="406" max="32767" attributes="0"/>
               <Group type="102" alignment="1" attributes="0">
                   <Component id="ErrorLabel" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="138" max="-2" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
                       <Component id="Bizum" linkSize="1" alignment="2" min="-2" pref="106" max="-2" attributes="0"/>
                       <Component id="Tarjeta" linkSize="1" alignment="2" min="-2" pref="106" max="-2" attributes="0"/>
-                      <Component id="PayPal" linkSize="1" alignment="2" min="-2" pref="106" max="-2" attributes="0"/>
-                      <Component id="Pagar" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="PayPal" linkSize="1" alignment="2" min="-2" pref="115" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="156" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="Pagar" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -67,15 +69,15 @@
                   <Component id="Pantalla" min="-2" pref="163" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="ErrorLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace pref="25" max="32767" attributes="0"/>
                   <Component id="Bizum" linkSize="2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="Tarjeta" linkSize="2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="PayPal" linkSize="2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="Pagar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="49" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
