@@ -5,6 +5,8 @@ package SistemadePagos;
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 import java.awt.Dimension;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,7 +26,7 @@ public class GUIPagos extends javax.swing.JFrame {
     public GUIPagos() {
         initComponents();
         setFrame();
-
+        this.Pantalla.setText("Binvenido al Programa de Pagos\nSelecciona un metodo para comenzar");
     }
 
     private void setFrame() {
@@ -35,6 +37,7 @@ public class GUIPagos extends javax.swing.JFrame {
     }
 
     private void validacionPago(String entrada) throws Exception {
+
         if (entrada != null && !entrada.isEmpty()) {
             try {
                 double dinero = Double.parseDouble(entrada);
@@ -42,13 +45,14 @@ public class GUIPagos extends javax.swing.JFrame {
                     throw new Exception("No puedes pagar una cantidad negativa");
                 }
                 pg.pagar(dinero);
+
             } catch (Exception e) {
                 this.ErrorLabel.setText("No has introducido numeros");
             }
+            this.Pantalla.setText(pg.obtenerComprobante());
         } else {
             throw new Exception("Entrada Vacia");
         }
-        this.Pantalla.setText(pg.obtenerComprobante());
     }
 
     private void validacionBizum(String entrada) throws Exception {
@@ -113,26 +117,19 @@ public class GUIPagos extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        Pantalla = new javax.swing.JTextArea();
-        ErrorLabel = new javax.swing.JTextField();
         Pagar = new javax.swing.JButton();
         PayPal = new javax.swing.JButton();
         Tarjeta = new javax.swing.JButton();
         Bizum = new javax.swing.JButton();
+        Metodos = new javax.swing.JLabel();
+        Mensajes = new javax.swing.JPanel();
+        Pantalla = new javax.swing.JTextArea();
+        ErrorLabel = new javax.swing.JTextField();
+        LogoBanco = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
         setResizable(false);
-
-        Pantalla.setEditable(false);
-        Pantalla.setColumns(20);
-        Pantalla.setRows(5);
-        Pantalla.setFocusable(false);
-
-        ErrorLabel.setEditable(false);
-        ErrorLabel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ErrorLabel.setToolTipText("");
-        ErrorLabel.setFocusable(false);
 
         Pagar.setText("Pagar");
         Pagar.setFocusable(false);
@@ -166,24 +163,70 @@ public class GUIPagos extends javax.swing.JFrame {
             }
         });
 
+        Metodos.setText("Metodos de Pago:");
+
+        Pantalla.setEditable(false);
+        Pantalla.setBackground(new java.awt.Color(0, 153, 204));
+        Pantalla.setColumns(20);
+        Pantalla.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
+        Pantalla.setForeground(new java.awt.Color(0, 0, 0));
+        Pantalla.setLineWrap(true);
+        Pantalla.setRows(5);
+        Pantalla.setBorder(javax.swing.BorderFactory.createMatteBorder(4, 4, 4, 4, new java.awt.Color(153, 153, 153)));
+        Pantalla.setFocusable(false);
+
+        ErrorLabel.setEditable(false);
+        ErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        ErrorLabel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ErrorLabel.setToolTipText("");
+        ErrorLabel.setCaretColor(new java.awt.Color(255, 0, 51));
+        ErrorLabel.setFocusable(false);
+
+        javax.swing.GroupLayout MensajesLayout = new javax.swing.GroupLayout(Mensajes);
+        Mensajes.setLayout(MensajesLayout);
+        MensajesLayout.setHorizontalGroup(
+            MensajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MensajesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(MensajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ErrorLabel)
+                    .addComponent(Pantalla))
+                .addContainerGap())
+        );
+        MensajesLayout.setVerticalGroup(
+            MensajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MensajesLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(Pantalla, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
+        );
+
+        LogoBanco.setText("jLabel2");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Pantalla, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(ErrorLabel)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(Bizum, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Tarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PayPal, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(147, 147, 147))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(Mensajes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 7, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Pagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(Metodos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Bizum, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(PayPal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Tarjeta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45)
+                        .addComponent(LogoBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(Pagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -192,16 +235,22 @@ public class GUIPagos extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(Pantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addComponent(Bizum)
-                .addGap(18, 18, 18)
-                .addComponent(Tarjeta)
+                .addComponent(Mensajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Metodos)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Bizum)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(Tarjeta))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(LogoBanco)))))
                 .addGap(18, 18, 18)
                 .addComponent(PayPal)
-                .addGap(18, 18, 18)
+                .addGap(22, 22, 22)
                 .addComponent(Pagar)
                 .addContainerGap())
         );
@@ -256,11 +305,19 @@ public class GUIPagos extends javax.swing.JFrame {
     }//GEN-LAST:event_PayPalActionPerformed
 
     private void PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PagarActionPerformed
-        String entrada = JOptionPane.showInputDialog(this, "Introduzca Cantidad", "Pagar", JOptionPane.PLAIN_MESSAGE);
-        try {
-            validacionPago(entrada);
-        } catch (Exception ex) {
-            this.ErrorLabel.setText(ex.getMessage());
+        if (pg != null&&pg.get()!=null) {
+            String entrada = JOptionPane.showInputDialog(this, "Introduzca Cantidad", "Pagar", JOptionPane.PLAIN_MESSAGE);
+            try {
+                validacionPago(entrada);
+            } catch (Exception ex) {
+                this.ErrorLabel.setText(ex.getMessage());
+            }
+        } else {
+            try {
+                throw new Exception("No has seleccionado ningun metodo de pago");
+            } catch (Exception ex) {
+                this.ErrorLabel.setText(ex.getMessage());
+            }
         }
     }//GEN-LAST:event_PagarActionPerformed
 
@@ -302,6 +359,9 @@ public class GUIPagos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bizum;
     private javax.swing.JTextField ErrorLabel;
+    private javax.swing.JLabel LogoBanco;
+    private javax.swing.JPanel Mensajes;
+    private javax.swing.JLabel Metodos;
     private javax.swing.JButton Pagar;
     private javax.swing.JTextArea Pantalla;
     private javax.swing.JButton PayPal;
