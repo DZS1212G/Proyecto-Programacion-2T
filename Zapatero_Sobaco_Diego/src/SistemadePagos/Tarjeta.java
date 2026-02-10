@@ -32,7 +32,8 @@ public class Tarjeta implements MetodoPago {
         return this.getClass().getSimpleName() + "\nComprobante de Pago: \nFecha del pago: " + now.format(dtf) + "\nImporte Pagado: " + this.importe + "\nNumero de Tarjeta: ************" + ultimosNum;
     }
 
-    public String getNumTarjeta() {
+    @Override
+    public String get() {
         return numTarjeta;
     }
 

@@ -28,6 +28,7 @@ public class PayPal implements MetodoPago {
         return this.getClass().getSimpleName() + "\nComprobante de Pago: \nFecha del pago: " + now.format(dtf) + "\nImporte Pagado: " + this.importe + "\nCorreo Destinatario: " + correoElec;
     }
 
+    @Override
     public String get() {
         return correoElec;
     }

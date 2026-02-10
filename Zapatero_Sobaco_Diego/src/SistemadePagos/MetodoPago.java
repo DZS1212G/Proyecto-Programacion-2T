@@ -15,4 +15,6 @@ public interface MetodoPago {
     String obtenerComprobante();
 
     void set(String cadena);
+
+    String get();
 }

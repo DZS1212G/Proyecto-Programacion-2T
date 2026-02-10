@@ -24,6 +24,7 @@ public class GUIPagos extends javax.swing.JFrame {
     public GUIPagos() {
         initComponents();
         setFrame();
+
     }
 
     private void setFrame() {
@@ -50,34 +51,54 @@ public class GUIPagos extends javax.swing.JFrame {
 
     private void validacionBizum(String entrada) throws Exception {
         this.ErrorLabel.setText("");
-        if (!entrada.matches("")) {
-            throw new Exception("El numero de telefono no contiene un formato adecuado (9 Numeros)");
+        if (entrada != null && !entrada.isEmpty()) {
+            if (entrada.isEmpty()) {
+                throw new Exception("No has introducido nada");
+            } else if (!entrada.matches("\\d{9}")) {
+                throw new Exception("Su tarjeta no contiene un formato adecuado(16 Numeros)");
+            } else {
+                pg.set(entrada);
+                actualizarGui();
+            }
         } else {
-            pg.set(entrada);
-
+            throw new Exception("Entrada Vacia");
         }
 
     }
 
     private void validacionTarjetas(String entrada) throws Exception {
         this.ErrorLabel.setText("");
-        if (entrada.isEmpty()) {
-            throw new Exception("No has introducido nada");
-        } else if (!entrada.matches("\\d{16}")) {
-            throw new Exception("Su tarjeta no contiene un formato adecuado(16 Numeros)");
+        if (entrada != null && !entrada.isEmpty()) {
+            if (entrada.isEmpty()) {
+                throw new Exception("No has introducido nada");
+            } else if (!entrada.matches("\\d{16}")) {
+                throw new Exception("Su tarjeta no contiene un formato adecuado(16 Numeros)");
+            } else {
+                pg.set(entrada);
+                actualizarGui();
+            }
         } else {
-            pg.set(entrada);
+            throw new Exception("Entrada Vacia");
         }
     }
 
     private void validacionPayPal(String entrada) throws Exception {
         this.ErrorLabel.setText("");
-        if (!entrada.matches("")) {
-            throw new Exception("Su correo no tiene el formato deseado (a@b.c)");
+        if (entrada != null && !entrada.isEmpty()) {
+            if (!entrada.matches("")) {
+                throw new Exception("Su correo no tiene el formato deseado (a@b.c)");
+            } else {
+                pg.set(entrada);
+                actualizarGui();
+            }
         } else {
-            pg.set(entrada);
-            this.ErrorLabel.setText("");
+            throw new Exception("Entrada Vacia");
         }
+    }
+
+    private void actualizarGui() {
+        this.Pantalla.setText("Metodo de Pago: " + pg.getClass().getSimpleName() + " seleccionado\nDatos Introducidos:" + pg.get());
+        this.ErrorLabel.setText("");
     }
 
     /**
@@ -100,9 +121,12 @@ public class GUIPagos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
 
+        Pantalla.setEditable(false);
         Pantalla.setColumns(20);
         Pantalla.setRows(5);
+        Pantalla.setFocusable(false);
 
+        ErrorLabel.setEditable(false);
         ErrorLabel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         ErrorLabel.setToolTipText("");
         ErrorLabel.setFocusable(false);
@@ -196,6 +220,7 @@ public class GUIPagos extends javax.swing.JFrame {
 
     private void BizumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BizumActionPerformed
         pg = bz;
+        this.ErrorLabel.setText("");
         this.Pantalla.setText("Metodo de Pago: " + pg.getClass().getSimpleName() + " seleccionado");
         String entrada = JOptionPane.showInputDialog(this, "Introduzca numero de telefono de destino", "Bizum", JOptionPane.PLAIN_MESSAGE);
         try {
@@ -207,6 +232,7 @@ public class GUIPagos extends javax.swing.JFrame {
 
     private void TarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TarjetaActionPerformed
         pg = tj;
+        this.ErrorLabel.setText("");
         this.Pantalla.setText("Metodo de Pago: " + pg.getClass().getSimpleName() + " seleccionado");
         String entrada = JOptionPane.showInputDialog(this, "Introduzca numero de tarjeta", "Bizum", JOptionPane.PLAIN_MESSAGE);
         try {
@@ -218,6 +244,7 @@ public class GUIPagos extends javax.swing.JFrame {
 
     private void PayPalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PayPalActionPerformed
         pg = pp;
+        this.ErrorLabel.setText("");
         this.Pantalla.setText("Metodo de Pago: " + pg.getClass().getSimpleName() + " seleccionado");
         String entrada = JOptionPane.showInputDialog(this, "Introduzca numero de tarjeta", "Bizum", JOptionPane.PLAIN_MESSAGE);
         try {

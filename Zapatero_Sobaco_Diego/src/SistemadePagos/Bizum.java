@@ -6,7 +6,6 @@ package SistemadePagos;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.InputMismatchException;
 
 /**
  *
@@ -14,7 +13,7 @@ import java.util.InputMismatchException;
  */
 public class Bizum implements MetodoPago {
 
-    private int numTel;
+    private String numTel;
     private double importe;
 
     @Override
@@ -29,13 +28,13 @@ public class Bizum implements MetodoPago {
         return this.getClass().getSimpleName() + "\nComprobante de Pago: \nFecha del pago: " + now.format(dtf) + "\nImporte Pagado: " + this.importe + "\nTelefono Receptor: " + numTel;
     }
 
-    public int getNumTel() {
-        return numTel;
+    @Override
+    public void set(String cadena) {
+        this.numTel = cadena;
     }
 
     @Override
-    public void set(String cadena) {
-        this.numTel = Integer.parseInt(cadena);
+    public String get() {
+        return numTel;
     }
-
 }
