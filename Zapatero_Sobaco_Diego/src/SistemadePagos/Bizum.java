@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author zapsobdi
  */
-public class Bizum implements MetodoPago {
+public class Bizum extends Pagos {
 
     private String numTel;
     private double importe;

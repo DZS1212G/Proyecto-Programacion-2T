@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author zapsobdi
  */
-public class PayPal implements MetodoPago {
+public class PayPal extends Pagos {
 
     private double importe;
     private String correoElec;

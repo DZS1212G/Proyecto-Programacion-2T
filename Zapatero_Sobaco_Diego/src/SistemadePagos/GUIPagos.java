@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class GUIPagos extends javax.swing.JFrame {
 
-    MetodoPago pg;
+    Pagos pg;
     Bizum bz = new Bizum();
     PayPal pp = new PayPal();
     Tarjeta tj = new Tarjeta();

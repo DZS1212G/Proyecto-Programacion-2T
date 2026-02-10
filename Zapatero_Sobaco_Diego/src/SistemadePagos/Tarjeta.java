@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author zapsobdi
  */
-public class Tarjeta implements MetodoPago {
+public class Tarjeta extends Pagos {
 
     private String numTarjeta;
     private double importe;
