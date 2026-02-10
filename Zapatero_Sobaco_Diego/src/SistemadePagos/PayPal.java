@@ -13,13 +13,9 @@ import java.time.format.DateTimeFormatter;
  */
 public class PayPal extends Pagos {
 
-    private double importe;
+   
     private String correoElec;
 
-    @Override
-    public void pagar(double cantidad) {
-        this.importe = cantidad;
-    }
 
     @Override
     public String obtenerComprobante() {

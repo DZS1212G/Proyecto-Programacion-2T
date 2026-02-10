@@ -14,12 +14,6 @@ import java.time.format.DateTimeFormatter;
 public class Bizum extends Pagos {
 
     private String numTel;
-    private double importe;
-
-    @Override
-    public void pagar(double cantidad) {
-        this.importe = cantidad;
-    }
 
     @Override
     public String obtenerComprobante() {

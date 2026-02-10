@@ -10,12 +10,16 @@ package SistemadePagos;
  */
 public abstract class Pagos implements MetodoPago {
 
+    protected double importe;
+
     abstract void set(String cadena);
 
     abstract String get();
 
     @Override
-    public abstract void pagar(double cantidad);
+    public void pagar(double cantidad) {
+        this.importe = cantidad;
+    }
 
     @Override
     public abstract String obtenerComprobante();

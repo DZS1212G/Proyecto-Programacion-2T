@@ -14,12 +14,6 @@ import java.time.format.DateTimeFormatter;
 public class Tarjeta extends Pagos {
 
     private String numTarjeta;
-    private double importe;
-
-    @Override
-    public void pagar(double cantidad) {
-        this.importe = cantidad;
-    }
 
     @Override
     public String obtenerComprobante() {
