@@ -48,6 +48,7 @@ public class GUIPagos extends javax.swing.JFrame {
                 this.ErrorLabel.setText("No has introducido numeros");
             }
             this.Pantalla.setText(pg.obtenerComprobante());
+            pg=null;
         } else {
             throw new Exception("Entrada Vacia");
         }
@@ -59,7 +60,7 @@ public class GUIPagos extends javax.swing.JFrame {
             if (entrada.isEmpty()) {
                 throw new Exception("No has introducido nada");
             } else if (!entrada.matches("\\d{9}")) {
-                throw new Exception("Su tarjeta no contiene un formato adecuado(16 Numeros)");
+                throw new Exception("Su tarjeta no contiene un formato adecuado(9 Numeros)");
             } else {
                 pg.set(entrada);
                 actualizarUI();
@@ -89,7 +90,7 @@ public class GUIPagos extends javax.swing.JFrame {
     private void validacionPayPal(String entrada) throws Exception {
         this.ErrorLabel.setText("");
         if (entrada != null && !entrada.isEmpty()) {
-            if (!entrada.matches("[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}")) {
+            if (!entrada.matches("[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{1,}")) {
                 throw new Exception("Su correo no tiene el formato deseado (a@b.c)");
             } else {
                 pg.set(entrada);
@@ -101,7 +102,7 @@ public class GUIPagos extends javax.swing.JFrame {
     }
 
     private void actualizarUI() {
-        this.Pantalla.setText("Metodo de pago seleccionado: " + pg.getClass().getSimpleName() + "\nDatos Introducidos:" + pg.get());
+        this.Pantalla.setText("Metodo de pago seleccionado: " + pg.getClass().getSimpleName() + "\nDatos Introducidos: " + pg.get());
         this.ErrorLabel.setText("");
     }
 
@@ -159,12 +160,16 @@ public class GUIPagos extends javax.swing.JFrame {
             }
         });
 
-        Metodos.setText("Metodos de Pago:");
+        Metodos.setFont(new java.awt.Font("Verdana", 1, 10)); // NOI18N
+        Metodos.setText("Metodos de Pago");
+        Metodos.setToolTipText("");
+        Metodos.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(153, 153, 153)));
 
         ErrorLabel.setEditable(false);
         ErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
         ErrorLabel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         ErrorLabel.setToolTipText("");
+        ErrorLabel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
         ErrorLabel.setCaretColor(new java.awt.Color(255, 0, 51));
         ErrorLabel.setFocusable(false);
 
@@ -182,26 +187,22 @@ public class GUIPagos extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ErrorLabel)
+                    .addComponent(Pagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(Pantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Pagar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(Pantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(Tarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(PayPal, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(Metodos)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(Bizum, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(25, 25, 25))))
-                    .addComponent(ErrorLabel))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Tarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PayPal, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Bizum, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Metodos, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -209,20 +210,19 @@ public class GUIPagos extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Pantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Metodos)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(Bizum)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Tarjeta)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PayPal)))
-                .addGap(52, 52, 52)
-                .addComponent(Pagar)
-                .addGap(23, 23, 23))
+                .addGap(18, 18, 18)
+                .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(Metodos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Bizum)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Tarjeta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PayPal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(Pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Bizum, PayPal, Tarjeta});
@@ -240,47 +240,60 @@ public class GUIPagos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BizumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BizumActionPerformed
-        pg = bz;
-        this.ErrorLabel.setText("");
-        String entrada = JOptionPane.showInputDialog(this, "Introduzca numero de telefono", "Bizum", JOptionPane.PLAIN_MESSAGE);
-        try {
-            validacionBizum(entrada);
-        } catch (Exception ex) {
-            this.ErrorLabel.setText(ex.getMessage());
+        if (pg == null || pg == bz) {
+            pg = bz;
+            this.ErrorLabel.setText("");
+            String entrada = JOptionPane.showInputDialog(this, "Introduzca numero de telefono", "Bizum", JOptionPane.PLAIN_MESSAGE);
+            try {
+                validacionBizum(entrada);
+            } catch (Exception ex) {
+                this.ErrorLabel.setText(ex.getMessage());
+            }
+        } else {
+            this.ErrorLabel.setText("No puedes cambiar metodo de pago hasta completar el anterior");
         }
     }//GEN-LAST:event_BizumActionPerformed
 
     private void TarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TarjetaActionPerformed
-        pg = tj;
-        this.ErrorLabel.setText("");
-        String entrada = JOptionPane.showInputDialog(this, "Introduzca numero de tarjeta", "Tarjeta", JOptionPane.PLAIN_MESSAGE);
-        try {
-            validacionTarjetas(entrada);
-        } catch (Exception ex) {
-            this.ErrorLabel.setText(ex.getMessage());
+        if (pg == null || pg == tj) {
+            pg = tj;
+            this.ErrorLabel.setText("");
+            String entrada = JOptionPane.showInputDialog(this, "Introduzca numero de tarjeta", "Tarjeta", JOptionPane.PLAIN_MESSAGE);
+            try {
+                validacionTarjetas(entrada);
+            } catch (Exception ex) {
+                this.ErrorLabel.setText(ex.getMessage());
+            }
+        } else {
+            this.ErrorLabel.setText("No puedes cambiar metodo de pago hasta completar el anterior");
         }
     }//GEN-LAST:event_TarjetaActionPerformed
 
     private void PayPalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PayPalActionPerformed
-        pg = pp;
-        this.ErrorLabel.setText("");
-        String entrada = JOptionPane.showInputDialog(this, "Introduzca el correo electronico", "PayPal", JOptionPane.PLAIN_MESSAGE);
-        try {
-            validacionPayPal(entrada);
-        } catch (Exception ex) {
-            this.ErrorLabel.setText(ex.getMessage());
+        if (pg == null || pg == pp) {
+            pg = pp;
+            this.ErrorLabel.setText("");
+            String entrada = JOptionPane.showInputDialog(this, "Introduzca el correo electronico", "PayPal", JOptionPane.PLAIN_MESSAGE);
+            try {
+                validacionPayPal(entrada);
+            } catch (Exception ex) {
+                this.ErrorLabel.setText(ex.getMessage());
+            }
+        } else {
+            this.ErrorLabel.setText("No puedes cambiar metodo de pago hasta completar el anterior");
         }
+
     }//GEN-LAST:event_PayPalActionPerformed
 
     private void PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PagarActionPerformed
-        if (pg != null&&pg.get()!=null) {
+        if (pg != null && pg.get() != null) {
             String entrada = JOptionPane.showInputDialog(this, "Introduzca Cantidad", "Pagar", JOptionPane.PLAIN_MESSAGE);
             try {
                 validacionPago(entrada);
