@@ -54,11 +54,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="Metodos" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
-                                  <Component id="Tarjeta" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
-                                  <Component id="Bizum" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="Metodos" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
+                              <Component id="Tarjeta" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
+                              <Component id="Bizum" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -116,7 +114,15 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="Pagar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Pagar"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/resources/LogoPagar.png"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+            <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="contentAreaFilled" type="boolean" value="false"/>
+            <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
           <Events>

@@ -126,7 +126,11 @@ public class GUIPagos extends javax.swing.JFrame {
         setBackground(new java.awt.Color(153, 153, 153));
         setResizable(false);
 
-        Pagar.setText("Pagar");
+        Pagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/LogoPagar.png"))); // NOI18N
+        Pagar.setBorder(null);
+        Pagar.setBorderPainted(false);
+        Pagar.setContentAreaFilled(false);
+        Pagar.setFocusPainted(false);
         Pagar.setFocusable(false);
         Pagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,10 +196,9 @@ public class GUIPagos extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(Metodos, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Tarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Bizum, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Metodos, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Tarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Bizum, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(27, 27, 27)
                                 .addComponent(jLabel1)
