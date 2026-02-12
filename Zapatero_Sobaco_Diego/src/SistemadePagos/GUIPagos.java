@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
  * @author DZS1212
  */
 public class GUIPagos extends javax.swing.JFrame {
+// declaramos a la superclase y creamos objetos de cada hijo
 
     Pagos pg;
     Bizum bz = new Bizum();
@@ -27,43 +28,41 @@ public class GUIPagos extends javax.swing.JFrame {
         this.Pantalla.setText("Binvenido al Programa de Pagos\nSelecciona un metodo para comenzar");
     }
 
-    private void setFrame() {
+    private void setFrame() { //damos formato a la ventana a?diendo el titulo y la posicion en el centro
         this.setTitle("Pagos");
         this.setSize(new Dimension(400, 700));
         this.pack();
         this.setLocationRelativeTo(null);
     }
 
-    private void validacionPago(String entrada) throws Exception {
+    private void validacionPago(String entrada) throws Exception { //Metodo de validacion de pago
 
-        if (entrada != null && !entrada.isEmpty()) {
-            try {
+        if (entrada != null && !entrada.isEmpty()) { //validamos que el usuario no deje el blanco ni cierre la ventana
+            try { //sirve para validar que lo introducido sea un numero y no cualquier caracter
                 double dinero = Double.parseDouble(entrada);
-                if (dinero <= 0) {
+                if (dinero < 1) { //validacion de que la cantidad introducida no sea ni 0 ni negativo
                     throw new Exception("No puedes pagar una cantidad negativa");
                 }
-                pg.pagar(dinero);
+                pg.pagar(dinero); //llamamos al metodo pagar del padre
 
             } catch (Exception e) {
                 this.ErrorLabel.setText("No has introducido numeros");
             }
             this.Pantalla.setText(pg.obtenerComprobante());
-            pg=null;
+            pg = null;
         } else {
             throw new Exception("Entrada Vacia");
         }
     }
 
-    private void validacionBizum(String entrada) throws Exception {
+    private void validacionBizum(String entrada) throws Exception { //validacion del bizum
         this.ErrorLabel.setText("");
-        if (entrada != null && !entrada.isEmpty()) {
-            if (entrada.isEmpty()) {
-                throw new Exception("No has introducido nada");
-            } else if (!entrada.matches("\\d{9}")) {
+        if (entrada != null && !entrada.isEmpty()) { //validamos que el usuario no deje el blanco ni cierre la ventana
+            if (!entrada.matches("\\d{9}")) { //valida si la cadena se trata de 9 numeros enteros
                 throw new Exception("Su tarjeta no contiene un formato adecuado(9 Numeros)");
             } else {
-                pg.set(entrada);
-                actualizarUI();
+                pg.set(entrada); //llama al metodo setter del padre 
+                actualizarUI(); //llama al metodo actualizar ui
             }
         } else {
             throw new Exception("Entrada Vacia");
@@ -73,14 +72,12 @@ public class GUIPagos extends javax.swing.JFrame {
 
     private void validacionTarjetas(String entrada) throws Exception {
         this.ErrorLabel.setText("");
-        if (entrada != null && !entrada.isEmpty()) {
-            if (entrada.isEmpty()) {
-                throw new Exception("No has introducido nada");
-            } else if (!entrada.matches("\\d{16}")) {
+        if (entrada != null && !entrada.isEmpty()) {//validamos que el usuario no deje el blanco ni cierre la ventana
+            if (!entrada.matches("\\d{16}")) { //valida si la cadena son de 16 numeros enteros
                 throw new Exception("Su tarjeta no contiene un formato adecuado(16 Numeros)");
             } else {
-                pg.set(entrada);
-                actualizarUI();
+                pg.set(entrada); //llama al metodo setter del padre 
+                actualizarUI(); //llama al metodo actualizar ui
             }
         } else {
             throw new Exception("Entrada Vacia");
@@ -89,19 +86,19 @@ public class GUIPagos extends javax.swing.JFrame {
 
     private void validacionPayPal(String entrada) throws Exception {
         this.ErrorLabel.setText("");
-        if (entrada != null && !entrada.isEmpty()) {
-            if (!entrada.matches("[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{1,}")) {
+        if (entrada != null && !entrada.isEmpty()) { //validamos que el usuario no deje el blanco ni cierre la ventana
+            if (!entrada.matches("[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{1,}")) { //validamos que la cadena del correo siga la estructura a@b.c
                 throw new Exception("Su correo no tiene el formato deseado (a@b.c)");
             } else {
-                pg.set(entrada);
-                actualizarUI();
+                pg.set(entrada); //llama al metodo setter del padre 
+                actualizarUI();  //llama al metodo actualizar ui
             }
         } else {
             throw new Exception("Entrada Vacia");
         }
     }
 
-    private void actualizarUI() {
+    private void actualizarUI() { //metodo para actualizar la ui tras meter datos en el metodo de pago
         this.Pantalla.setText("Metodo de pago seleccionado: " + pg.getClass().getSimpleName() + "\nDatos Introducidos: " + pg.get());
         this.ErrorLabel.setText("");
     }
@@ -247,11 +244,11 @@ public class GUIPagos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BizumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BizumActionPerformed
-        if (pg == null || pg == bz) {
-            pg = bz;
-            this.ErrorLabel.setText("");
-            String entrada = JOptionPane.showInputDialog(this, "Introduzca numero de telefono", "Bizum", JOptionPane.PLAIN_MESSAGE);
-            try {
+        if (pg == null || pg == bz) { //comprobamos que el objeto padre este disponible para este metodo de pago
+            pg = bz; //convertimos el objeto padre en el metodo de pago requerido para usar los metodos del padre sobrescritos en funcion del hijo
+            this.ErrorLabel.setText(""); //limpiamos el panel de errores
+            String entrada = JOptionPane.showInputDialog(this, "Introduzca numero de telefono", "Bizum", JOptionPane.PLAIN_MESSAGE); //llamamos a la ventana para introducir los datos del metodo de pago
+            try { //este try catch recoge todas las validaciones del metodo validacionBizum() en caso de encontrar algun error llegara al catch y lo mostrara en el panel de errores
                 validacionBizum(entrada);
             } catch (Exception ex) {
                 this.ErrorLabel.setText(ex.getMessage());
@@ -262,11 +259,11 @@ public class GUIPagos extends javax.swing.JFrame {
     }//GEN-LAST:event_BizumActionPerformed
 
     private void TarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TarjetaActionPerformed
-        if (pg == null || pg == tj) {
-            pg = tj;
-            this.ErrorLabel.setText("");
-            String entrada = JOptionPane.showInputDialog(this, "Introduzca numero de tarjeta", "Tarjeta", JOptionPane.PLAIN_MESSAGE);
-            try {
+        if (pg == null || pg == tj) { //comprobamos que el objeto padre este disponible para este metodo de pago
+            pg = tj; //convertimos el objeto padre en el metodo de pago requerido para usar los metodos del padre sobrescritos en funcion del hijo
+            this.ErrorLabel.setText(""); //limpiamos el panel de errores
+            String entrada = JOptionPane.showInputDialog(this, "Introduzca numero de tarjeta", "Tarjeta", JOptionPane.PLAIN_MESSAGE);  //llamamos a la ventana para introducir los datos del metodo de pago
+            try { //este try catch recoge todas las validaciones del metodo validacionTarjetas() en caso de encontrar algun error llegara al catch y lo mostrara en el panel de errores
                 validacionTarjetas(entrada);
             } catch (Exception ex) {
                 this.ErrorLabel.setText(ex.getMessage());
@@ -277,11 +274,11 @@ public class GUIPagos extends javax.swing.JFrame {
     }//GEN-LAST:event_TarjetaActionPerformed
 
     private void PayPalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PayPalActionPerformed
-        if (pg == null || pg == pp) {
-            pg = pp;
-            this.ErrorLabel.setText("");
-            String entrada = JOptionPane.showInputDialog(this, "Introduzca el correo electronico", "PayPal", JOptionPane.PLAIN_MESSAGE);
-            try {
+        if (pg == null || pg == pp) { //comprobamos que el objeto padre este disponible para este metodo de pago
+            pg = pp; //convertimos el objeto padre en el metodo de pago requerido para usar los metodos del padre sobrescritos en funcion del hijo
+            this.ErrorLabel.setText(""); //limpiamos el panel de errores
+            String entrada = JOptionPane.showInputDialog(this, "Introduzca el correo electronico", "PayPal", JOptionPane.PLAIN_MESSAGE); //llamamos a la ventana para introducir los datos del metodo de pago
+            try { //este try catch recoge todas las validaciones del metodo validacionPayPal() en caso de encontrar algun error llegara al catch y lo mostrara en el panel de errores
                 validacionPayPal(entrada);
             } catch (Exception ex) {
                 this.ErrorLabel.setText(ex.getMessage());
@@ -293,9 +290,9 @@ public class GUIPagos extends javax.swing.JFrame {
     }//GEN-LAST:event_PayPalActionPerformed
 
     private void PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PagarActionPerformed
-        if (pg != null && pg.get() != null) {
-            String entrada = JOptionPane.showInputDialog(this, "Introduzca Cantidad", "Pagar", JOptionPane.PLAIN_MESSAGE);
-            try {
+        if (pg != null && pg.get() != null) { // esta validacion comprueba que se haya seleccionado un metodo de pago y en ese metodo se haya introducido los valores
+            String entrada = JOptionPane.showInputDialog(this, "Introduzca Cantidad", "Pagar", JOptionPane.PLAIN_MESSAGE);  //llamamos a la ventana para introducir los datos del metodo de pago
+            try { //este try catch recoge todas las validaciones del metodo validacionPago() en caso de encontrar algun error llegara al catch y lo mostrara en el panel de errores
                 validacionPago(entrada);
             } catch (Exception ex) {
                 this.ErrorLabel.setText(ex.getMessage());

@@ -18,7 +18,7 @@ public class PayPal extends Pagos {
 
 
     @Override
-    public String obtenerComprobante() {
+    public String obtenerComprobante() { //clase sobrescrita de la interface creando un date time formatter para mostrar la hora a?adiendo los datos del PayPal
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return this.getClass().getSimpleName() + "\nComprobante de Pago: \nFecha del pago: " + now.format(dtf) + "\nImporte Pagado: " + this.importe + "\nCorreo Destinatario: " + correoElec;
